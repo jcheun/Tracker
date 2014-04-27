@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Trackr</string>
+    <string name="welcome">Welcome to Trackr!</string>
+    <string name="action_settings">Settings</string>
+	<string name="viewProfile">View Profile</string>
+	<string name="startTrack">Start Tracking</string>
+	<string name="timeZero">00:00:00</string>
+	<string name="start">Start</string>
+	<string name="stop">Stop</string>
+	<string name="back">Back</string>
+	<string name="title_activity_track">Track Your Route</string>
+</resources>
