@@ -76,6 +76,12 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, TrackActivity.class);
 		startActivity(intent);
 	}
+	
+	public void mapView(View V) {
+		// Go to second activity
+		Intent intent = new Intent(this, MapActivity.class);
+		startActivity(intent);
+	}
 
 	public void viewProfile(View V) {
 
