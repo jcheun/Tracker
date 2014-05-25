@@ -24,4 +24,4 @@ proguard/
 
 # idea
 .idea/
-*.iml
+Trackr.iml
