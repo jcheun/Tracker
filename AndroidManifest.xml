@@ -33,7 +33,7 @@
         
         <meta-data
 		    android:name="com.google.android.maps.v2.API_KEY"
-		    android:value="AIzaSyC6UDirh7sOG0iDEP4jw6IpTDWlvPTNXL4"/>
+		    android:value="AIzaSyDOUadWZkWflTjom5GHUkCb-adXMhcLkRs"/>
         
         <activity
             android:name="com.example.trackr.HomeActivity"
@@ -52,6 +52,7 @@
             android:name="com.example.trackr.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity android:name=".Map2Activity"/>
     </application>
 
 </manifest>

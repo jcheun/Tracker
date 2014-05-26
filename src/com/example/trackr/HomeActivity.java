@@ -79,7 +79,7 @@ public class HomeActivity extends Activity {
 	
 	public void mapView(View V) {
 		// Go to second activity
-		Intent intent = new Intent(this, MapActivity.class);
+		Intent intent = new Intent(this, Map2Activity.class);
 		startActivity(intent);
 	}
 
