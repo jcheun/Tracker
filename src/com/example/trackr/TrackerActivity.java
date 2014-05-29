@@ -7,23 +7,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-public class Map2Activity extends FragmentActivity {
+public class TrackerActivity extends FragmentActivity {
     private ViewPager mViewPager;
-    private FragAdapter mFragAdapter;
+    private TrackerAdapter mFragAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager);
 
-        mFragAdapter = new FragAdapter(getSupportFragmentManager());
+        mFragAdapter = new TrackerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mFragAdapter);
     }
 
-    public static class FragAdapter extends FragmentPagerAdapter {
-
-
-        public FragAdapter(FragmentManager fm) {
+    public static class TrackerAdapter extends FragmentPagerAdapter {
+        public TrackerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -31,7 +29,7 @@ public class Map2Activity extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return TimerActivity.newInstance("View " + position);
+                    return TrackActivity.newInstance("View " + position);
                 case 1:
                     return new GoogleMapActivity();
                 default:
@@ -44,5 +42,4 @@ public class Map2Activity extends FragmentActivity {
             return 2;
         }
     }
-
 }

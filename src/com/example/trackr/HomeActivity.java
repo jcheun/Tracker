@@ -1,8 +1,6 @@
 package com.example.trackr;
 
-import com.example.trackr.TrackActivity;
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
 public class HomeActivity extends Activity {
 
@@ -73,13 +70,13 @@ public class HomeActivity extends Activity {
 
 	public void startTrack(View V) {
 		// Go to second activity
-		Intent intent = new Intent(this, TrackActivity.class);
+		Intent intent = new Intent(this, CreateRouteActivity.class);
 		startActivity(intent);
 	}
 	
 	public void mapView(View V) {
 		// Go to second activity
-		Intent intent = new Intent(this, Map2Activity.class);
+		Intent intent = new Intent(this, TrackerActivity.class);
 		startActivity(intent);
 	}
 

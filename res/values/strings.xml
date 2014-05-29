@@ -17,5 +17,6 @@
 	<string name="speed">Speed: </string>
     <string name="title_activity_map">MapActivity</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="from_location">From:</string>
+    <string name="to_location">To:</string>
 </resources>

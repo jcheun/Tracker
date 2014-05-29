@@ -73,7 +73,7 @@ public class TimerActivity extends Fragment {
             int milliseconds = (int) (finalTime % 1000);
             textTimer.setText("" + minutes + ":"
                     + String.format("%02d", seconds) + ":"
-                    + String.format("%03d", milliseconds));
+                    + String.format("%02d", milliseconds));
             myHandler.postDelayed(this, 0);
         }
 
