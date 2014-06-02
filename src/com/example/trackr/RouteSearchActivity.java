@@ -52,9 +52,8 @@ public class RouteSearchActivity extends Fragment {
                 Log.i(LOG_TAG, from.getText().toString());
                 Log.i(LOG_TAG, to.getText().toString());
                 GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
-                gMapFrag.setStart(from.getText().toString());
-                gMapFrag.setDestination(to.getText().toString());
-                gMapFrag.updateRoute();
+                gMapFrag.setAddress(from.getText().toString(), to.getText().toString());
+                //gMapFrag.updateRoute();
 
                 ViewPager vPager = (ViewPager) getActivity().findViewById(R.id.pager);
                 vPager.setCurrentItem(1);
@@ -136,7 +135,7 @@ public class RouteSearchActivity extends Fragment {
 
         if(mConnection != null) mConnection.disconnect();
 
-        Log.i(LOG_TAG, json.toString());
+        //Log.i(LOG_TAG, json.toString());
         return json.toString();
     }
 

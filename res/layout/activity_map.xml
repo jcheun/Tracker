@@ -5,37 +5,9 @@
     tools:context="${packageName}.${activityClass}" >
 
     <fragment
-        android:id="@+id/mapV"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
-
-    <TextView
-        android:id="@+id/latitute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/longitutde"
-        android:layout_below="@+id/mapV"
-        android:layout_marginTop="20dp"
-        android:text="@string/latitute" />
-
-    <TextView
-        android:id="@+id/longitutde"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/latitute"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/longitutde" />
-
-    <TextView
-        android:id="@+id/speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/longitutde"
-        android:layout_below="@+id/longitutde"
-        android:layout_marginTop="20dp"
-        android:text="@string/speed" />
+            android:id="@+id/mapV2"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 </RelativeLayout>

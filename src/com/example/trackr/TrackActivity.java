@@ -22,6 +22,7 @@ public class TrackActivity extends Fragment {
     private long finalTime = 0L;
     private boolean isRunning = false;
 
+
     public static TrackActivity newInstance(String title) {
         TrackActivity trackFragment = new TrackActivity();
         Bundle bundle = new Bundle();
@@ -57,23 +58,42 @@ public class TrackActivity extends Fragment {
                 }
             }
         });
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //myHandler.postDelayed(updateTimerMethod, 0);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        myHandler.removeCallbacks(updateTimerMethod);
     }
 
     private Runnable updateTimerMethod = new Runnable() {
 
         public void run() {
-
-            timeMilli = SystemClock.uptimeMillis() - startTime;
-            finalTime = timeSwap + timeMilli;
-            textTimer = (TextView) getView().findViewById(R.id.textTimer);
-            int seconds = (int) (finalTime / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            int milliseconds = (int) (finalTime % 1000);
-            textTimer.setText("" + minutes + ":"
-                    + String.format("%02d", seconds) + ":"
-                    + String.format("%02d", milliseconds));
+//            finalTime = TrackerActivity.getCurrentTime();
+//            textTimer = (TextView) getView().findViewById(R.id.textTimer);
+//            int seconds = (int) (finalTime / 1000);
+//            int minutes = seconds / 60;
+//            seconds = seconds % 60;
+//            int milliseconds = (int) (finalTime % 1000);
+//            textTimer.setText("" + minutes + ":"
+//                    + String.format("%02d", seconds) + ":"
+//                    + String.format("%02d", milliseconds));
+//
+            TextView speed = (TextView) getActivity().findViewById(R.id.currentSpeed);
+            TextView distance = (TextView) getActivity().findViewById(R.id.distTravel);
+            GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
+            gMapFrag.updateTrackMap(TrackerActivity.getCurrentPoints());
+            gMapFrag.fixBearing(TrackerActivity.getCurrentBearing());
+            speed.setText(Double.toString(TrackerActivity.getCurrentSpeed()));
+            distance.setText(Double.toString(TrackerActivity.getCurrentDistance()));
             myHandler.postDelayed(this, 0);
         }
 

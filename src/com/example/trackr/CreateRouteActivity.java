@@ -6,19 +6,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 
 public class CreateRouteActivity extends FragmentActivity {
-    private ViewPager mViewPager;
-    private RouteAdapter mFragAdapter;
-
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager);
-
-        mFragAdapter = new RouteAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        RouteAdapter mFragAdapter = new RouteAdapter(getSupportFragmentManager());
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mFragAdapter);
     }
 
@@ -33,7 +30,7 @@ public class CreateRouteActivity extends FragmentActivity {
                 case 0:
                     return new RouteSearchActivity();
                 case 1:
-                    return new GoogleMapActivity();
+                    return GoogleMapActivity.newInstance(true, null);
                 default:
                     return null;
             }

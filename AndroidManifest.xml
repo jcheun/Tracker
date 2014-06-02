@@ -54,6 +54,8 @@
         </activity>
         <activity android:name=".TrackerActivity"/>
         <activity android:name=".CreateRouteActivity"/>
+        <activity android:name=".test"/>
+        <service android:name=".TrackerService"/>
     </application>
 
 </manifest>

@@ -4,15 +4,21 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends Activity {
 
 	AppInfo appInfo;
+
+    private static List<data> customRoutes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,7 @@ public class HomeActivity extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+        customRoutes = new ArrayList<data>();
 	}
 
 	@Override
@@ -56,8 +63,7 @@ public class HomeActivity extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_home, container,
-					false);
+			View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 			return rootView;
 		}
 	}
@@ -81,11 +87,22 @@ public class HomeActivity extends Activity {
 	}
 
 	public void viewProfile(View V) {
-
+        Intent intent = new Intent(this, test.class);
+        startActivity(intent);
 	}
 
 	public void goSettings(View V) {
 
 	}
+
+    public static void setCustomRoutes(data route){
+        customRoutes.add(route);
+    }
+
+    public static void getCustomRoutes() {
+        if(customRoutes.isEmpty()) return;
+        data tmp = customRoutes.get(0);
+        Log.i("Home", tmp.route);
+    }
 	
 }

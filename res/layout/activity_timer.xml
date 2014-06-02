@@ -7,12 +7,10 @@
             android:id="@+id/textTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="126dp"
             android:text="@string/timeZero"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="50.0sp" />
+            android:textSize="50.0sp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:layout_marginTop="149dp"/>
 
     <Button
             android:id="@+id/Start"
@@ -23,6 +21,19 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="56dp"
             android:text="@string/start" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Dist"
+            android:id="@+id/distTravel"
+            android:layout_centerVertical="true" android:layout_toLeftOf="@+id/Start"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="ft/s"
+            android:id="@+id/currentSpeed" android:layout_alignTop="@+id/distTravel" android:layout_toRightOf="@+id/Start"/>
 
 
 </RelativeLayout>
