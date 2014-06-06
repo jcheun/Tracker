@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,28 +34,26 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.trackr.HomeActivity.PlaceholderFragment;
-
-public class LoginActivity extends Activity {
-
+public class RegisterActivity extends Activity {
 	private String user;
 	private String pass;
+	private String verify;
 	private final String key = "behappy";
-	private String loginURL = "https://trackr121.appspot.com/trackr/default/login.json/";
+	private String loginURL = "https://trackr121.appspot.com/trackr/default/sign_up.json/";
 	private static final int MAX_SETUP_DOWNLOAD_TRIES = 3;
 	private static final String LOG_TAG = "loginPoster";
 	public boolean loggedIn;
 	private SharedPreferences settings;
 	// Sharedpref file name
-    private static final String PREF_NAME = "AndroidHivePref";
-	
-    public String android_id;
-    
+	private static final String PREF_NAME = "AndroidHivePref";
+	private String android_id;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
-		settings = getApplicationContext().getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+		setContentView(R.layout.activity_register);
+		settings = getApplicationContext().getSharedPreferences(PREF_NAME,
+				MODE_PRIVATE);
 		checkLoggedIn();
 	}
 
@@ -102,29 +99,40 @@ public class LoginActivity extends Activity {
 
 	}
 
-	public void loginClick(View v) {
-		EditText userTxt = (EditText) findViewById(R.id.username);
-		EditText passTxt = (EditText) findViewById(R.id.password);
+	public void registerClick(View v) {
+		EditText userTxt = (EditText) findViewById(R.id.usernameInput);
+		EditText passTxt = (EditText) findViewById(R.id.passwordInput);
+		EditText confPassTxt = (EditText) findViewById(R.id.passwordVerifyInput);
 		user = userTxt.getText().toString();
 		pass = passTxt.getText().toString();
-		android_id = android_id = Secure.getString(getBaseContext().getContentResolver(), 
-				Secure.ANDROID_ID);
-		BackgroundDownloader downloader = new BackgroundDownloader();
-		String updatedURL = loginURL.concat("behappy/").concat(user).concat("/")
-										.concat(android_id).concat("/").concat(pass);
-		downloader.execute(updatedURL);
+		verify = confPassTxt.getText().toString();
+		android_id = Secure.getString(getBaseContext()
+				.getContentResolver(), Secure.ANDROID_ID);
+		if (pass.compareTo(verify) == 0)  {
+			BackgroundDownloader downloader = new BackgroundDownloader();
+			String updatedURL = loginURL.concat("behappy/").concat(user)
+					.concat("/").concat(android_id).concat("/").concat(pass);
+			downloader.execute(updatedURL);
+		} else {
+			Toast toast;
+			CharSequence text;
+			int duration = Toast.LENGTH_SHORT;
+			text = "Passwords do not match";
+			toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+			toast.show();
+		}
 	}
 
-	public void register(View v) {
-		Intent intent = new Intent(this, RegisterActivity.class);
-		startActivity(intent);
+	public void clearClick() {
+
 	}
-	
+
 	@SuppressWarnings("null")
-	public void checkLoggedIn(){
+	public void checkLoggedIn() {
 		Log.d(LOG_TAG, "checking if logged in ..." + loggedIn);
 		loggedIn = settings.getBoolean("loggedIn", false);
-		if(loggedIn == true){
+		if (loggedIn == true) {
 			Intent intent = new Intent(this, HomeActivity.class);
 			startActivity(intent);
 		}
@@ -187,17 +195,17 @@ public class LoginActivity extends Activity {
 			CharSequence text;
 			String result;
 			int duration = Toast.LENGTH_SHORT;
-			
-			try{
+
+			try {
 				JSONObject jsonObj = new JSONObject(s);
 				text = jsonObj.getString("result");
 				toast = Toast.makeText(context, text, duration);
-				toast.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+				toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
 				toast.show();
-				if(text.toString().compareTo("Login Success") == 0){
+				if (text.toString().compareTo("Successfully Registered") == 0) {
 					Log.d(LOG_TAG, "Logging in");
 					Editor editor = settings.edit();
-					editor.putBoolean("loggedIn",true);
+					editor.putBoolean("loggedIn", true);
 					editor.putString("username", user);
 					editor.commit();
 				}
@@ -208,19 +216,19 @@ public class LoginActivity extends Activity {
 			}
 		}
 	}
-	
-	public static String ConvertStreamToString(InputStream is){
-		
-		if(is == null){
+
+	public static String ConvertStreamToString(InputStream is) {
+
+		if (is == null) {
 			return null;
 		}
-		
+
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
-		
+
 		String line = null;
-		try{
-			while((line = reader.readLine()) != null){
+		try {
+			while ((line = reader.readLine()) != null) {
 				sb.append((line + "\n"));
 			}
 		} catch (IOException e) {
@@ -234,4 +242,5 @@ public class LoginActivity extends Activity {
 		}
 		return sb.toString();
 	}
+
 }

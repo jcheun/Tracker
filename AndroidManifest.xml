@@ -56,6 +56,10 @@
             android:name="com.example.trackr.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name="com.example.trackr.RegisterActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
         <activity android:name=".TrackerActivity"/>
         <activity android:name=".CreateRouteActivity"/>
         <activity android:name=".test"/>
