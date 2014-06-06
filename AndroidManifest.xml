@@ -36,13 +36,17 @@
 		    android:value="AIzaSyDOUadWZkWflTjom5GHUkCb-adXMhcLkRs"/>
         
         <activity
-            android:name="com.example.trackr.HomeActivity"
+            android:name="com.example.trackr.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.trackr.HomeActivity"
+            android:label="@string/title_activity_home" >
         </activity>
         <activity
             android:name="com.example.trackr.TrackActivity"

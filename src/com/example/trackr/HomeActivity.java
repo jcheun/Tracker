@@ -3,6 +3,8 @@ package com.example.trackr;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,13 +21,16 @@ public class HomeActivity extends Activity {
 	AppInfo appInfo;
 
     private static List<data> customRoutes;
-
+    private SharedPreferences settings;
+	// Sharedpref file name
+    private static final String PREF_NAME = "AndroidHivePref";
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		appInfo = AppInfo.getInstance(this);
-
+		settings = getApplicationContext().getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -103,6 +108,14 @@ public class HomeActivity extends Activity {
         if(customRoutes.isEmpty()) return;
         data tmp = customRoutes.get(0);
         Log.i("Home", tmp.route);
+    }
+    
+    public void clickLogout(View v){
+    	Editor editor = settings.edit();
+		editor.clear();
+		editor.commit();
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
     }
 	
 }
