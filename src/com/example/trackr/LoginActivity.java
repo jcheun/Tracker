@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -102,17 +101,18 @@ public class LoginActivity extends Activity {
 
 	}
 
-	public void loginClick(View v) {
+	public void login(View v) {
 		EditText userTxt = (EditText) findViewById(R.id.username);
 		EditText passTxt = (EditText) findViewById(R.id.password);
 		user = userTxt.getText().toString();
 		pass = passTxt.getText().toString();
-		android_id = android_id = Secure.getString(getBaseContext().getContentResolver(), 
+		android_id = Secure.getString(getBaseContext().getContentResolver(), 
 				Secure.ANDROID_ID);
 		BackgroundDownloader downloader = new BackgroundDownloader();
 		String updatedURL = loginURL.concat("behappy/").concat(user).concat("/")
 										.concat(android_id).concat("/").concat(pass);
 		downloader.execute(updatedURL);
+		
 	}
 
 	public void register(View v) {

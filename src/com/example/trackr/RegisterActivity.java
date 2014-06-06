@@ -116,8 +116,7 @@ public class RegisterActivity extends Activity {
 			toast = Toast.makeText(getApplicationContext(), text, duration);
 			toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
 			toast.show();
-		}
-		if (pass.compareTo(verify) == 0)  {
+		} else if (pass.compareTo(verify) == 0)  {
 			BackgroundDownloader downloader = new BackgroundDownloader();
 			String updatedURL = loginURL.concat("behappy/").concat(user)
 					.concat("/").concat(android_id).concat("/").concat(pass);
@@ -131,8 +130,13 @@ public class RegisterActivity extends Activity {
 		}
 	}
 
-	public void clearClick() {
-
+	public void clearClick(View v) {
+		EditText userTxt = (EditText) findViewById(R.id.usernameInput);
+		EditText passTxt = (EditText) findViewById(R.id.passwordInput);
+		EditText confPassTxt = (EditText) findViewById(R.id.passwordVerifyInput);
+		userTxt.setText("");
+		passTxt.setText("");
+		confPassTxt.setText("");
 	}
 
 	@SuppressWarnings("null")
