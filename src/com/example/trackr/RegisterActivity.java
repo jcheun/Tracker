@@ -100,6 +100,9 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void registerClick(View v) {
+		Toast toast;
+		CharSequence text;
+		int duration = Toast.LENGTH_SHORT;
 		EditText userTxt = (EditText) findViewById(R.id.usernameInput);
 		EditText passTxt = (EditText) findViewById(R.id.passwordInput);
 		EditText confPassTxt = (EditText) findViewById(R.id.passwordVerifyInput);
@@ -108,15 +111,19 @@ public class RegisterActivity extends Activity {
 		verify = confPassTxt.getText().toString();
 		android_id = Secure.getString(getBaseContext()
 				.getContentResolver(), Secure.ANDROID_ID);
+		if (user.length() == 0 || pass.length() == 0){
+			text = "Length Inssuficient";
+			toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+			toast.show();
+		}
 		if (pass.compareTo(verify) == 0)  {
 			BackgroundDownloader downloader = new BackgroundDownloader();
 			String updatedURL = loginURL.concat("behappy/").concat(user)
 					.concat("/").concat(android_id).concat("/").concat(pass);
 			downloader.execute(updatedURL);
 		} else {
-			Toast toast;
-			CharSequence text;
-			int duration = Toast.LENGTH_SHORT;
+			
 			text = "Passwords do not match";
 			toast = Toast.makeText(getApplicationContext(), text, duration);
 			toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
