@@ -58,18 +58,19 @@ public class GoogleMapActivity extends Fragment implements
     private String dLocation = "Destination";
     private String rUrl="";
     private Boolean editMode;
-
+    private Boolean isReady = false;
 
     private static double cDistance = 0;
     private static double cSpeed = 0;
 
 
 
-    public static GoogleMapActivity newInstance(Boolean editMode, String route) {
+    public static GoogleMapActivity newInstance(Boolean editMode, String cRoute, String tRoute) {
         GoogleMapActivity gMapFrag = new GoogleMapActivity();
         Bundle bundle = new Bundle();
         bundle.putBoolean("EditMode", editMode);
-        bundle.putString("Route", route);
+        bundle.putString("CRoute", cRoute);
+        bundle.putString("TRoute", tRoute);
         gMapFrag.setArguments(bundle);
         return gMapFrag;
     }
@@ -90,7 +91,8 @@ public class GoogleMapActivity extends Fragment implements
                 	saveRoute();
                 	getActivity().finish();                
                     Intent intent = new Intent(getActivity(), TrackerActivity.class);
-                    intent.putExtra("URL", rUrl);
+                    String s = GoogleHelper.encodePath(rPolyline.getPoints());
+                    intent.putExtra("URL", s);
                     startActivity(intent);
                 }
             });
@@ -137,10 +139,24 @@ public class GoogleMapActivity extends Fragment implements
 
         enableEditMode(editMode);
         if(!editMode) {
-            updateMap(getArguments().getString("Route"));
+            if(getArguments().getString("CRoute") != null && getArguments().getString("CRoute").length() > 0) {
+                List<LatLng> points = GoogleHelper.decodePath(getArguments().getString("CRoute"));
+                rPolyline.setPoints(points);
+            }
+
+            if(getArguments().getString("TRoute") != null && getArguments().getString("TRoute").length() > 0) {
+                List<LatLng> points = GoogleHelper.decodePath(getArguments().getString("TRoute"));
+                mPolyline.setPoints(points);
+            }
+            //updateMap(getArguments().getString("Route"));
         }
         Log.i(LOG_TAG, "Created View");
+        isReady = true;
         return view;
+    }
+
+    public boolean isReady() {
+        return isReady;
     }
 
     @Override
@@ -291,7 +307,7 @@ public class GoogleMapActivity extends Fragment implements
     }
 
     public void updateRouteMap(List<LatLng> point) {
-        rPolyline.setPoints(point);
+            rPolyline.setPoints(point);
     }
     public void updateMap (String url) {
 
@@ -407,7 +423,7 @@ public class GoogleMapActivity extends Fragment implements
             //route.setAltitude(activity.getAltitudes());
             route.setSpeed(activity.getSpeeds());
             route.setType(data.TYPE.trackedRoute);
-            HomeActivity.setTrackedRoutes(route);
+            HomeActivity.setCustomRoutes(route);
         }
         HomeActivity.getCustomRoutes();
         HomeActivity.getTrackedRoutes();

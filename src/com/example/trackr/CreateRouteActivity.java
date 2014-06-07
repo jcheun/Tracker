@@ -30,7 +30,7 @@ public class CreateRouteActivity extends FragmentActivity {
                 case 0:
                     return new RouteSearchActivity();
                 case 1:
-                    return GoogleMapActivity.newInstance(true, null);
+                    return GoogleMapActivity.newInstance(true, null, null);
                 default:
                     return null;
             }

@@ -110,6 +110,8 @@ public class TrackActivity extends Fragment {
 												.concat(android_id+"/");
 				Log.d("url:",putRouteURL);
 				downloader.execute(putRouteURL);
+
+                getActivity().finish();
 				
 			}
 
