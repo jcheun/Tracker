@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.WindowManager;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,8 +24,9 @@ public class RouteInfoActivity extends FragmentActivity {
     private TrackerService mService;
     private boolean serviceBound = false;
     private boolean background = false;
-    public data routeData;
-
+    public data routeData = null;
+    static String cRoute = null;
+    static String tRoute = null;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager);
@@ -32,7 +34,10 @@ public class RouteInfoActivity extends FragmentActivity {
         TrackerAdapter mFragAdapter = new TrackerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
         dataIndex = getIntent().getIntExtra("dataIndex", dataIndex);
-        routeData = HomeActivity.getTrackedRoute(dataIndex);
+        routeData = HomeActivity.getCustomRoutes();
+        cRoute = routeData.route;
+        tRoute = routeData.trackedRoute;
+        if(routeData == null) Log.i("NULL", "NULL");
         mViewPager.setAdapter(mFragAdapter);
         
     }
@@ -60,7 +65,7 @@ public class RouteInfoActivity extends FragmentActivity {
                 case 0:
                     return RouteViewActivity.newInstance("View " + position);
                 case 1:
-                    return GoogleMapActivity.newInstance(false, null);
+                    return GoogleMapActivity.newInstance(false, cRoute, tRoute);
                 default:
                     return null;
             }

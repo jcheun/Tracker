@@ -11,6 +11,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import android.app.Activity;
+import com.google.android.gms.maps.model.LatLng;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -61,14 +63,17 @@ public class RouteViewActivity extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(LOG_TAG, "onCreate");
-		routeData = activity.routeData;
+
+
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.i(LOG_TAG, "Created View");
-		View view = inflater.inflate(R.layout.activity_route_view, container, false);
+        activity = (RouteInfoActivity) getActivity();
+        routeData = activity.routeData;
+        View view = inflater.inflate(R.layout.activity_route_view, container, false);
 		return view;
 	}
 
@@ -76,7 +81,7 @@ public class RouteViewActivity extends Fragment {
 	public void onResume() {
 		super.onResume();
 		textToEdit = (TextView) getActivity().findViewById(R.id.dateData);
-		textToEdit.setText(routeData.time);
+		textToEdit.setText(Double.toString(routeData.time));
 		textToEdit = (TextView) getActivity().findViewById(R.id.distanceData);
 		textToEdit.setText(Double.toString(routeData.distance));
 		textToEdit = (TextView) getActivity().findViewById(R.id.avgSpeedData);
@@ -86,11 +91,16 @@ public class RouteViewActivity extends Fragment {
 		textToEdit = (TextView) getActivity().findViewById(R.id.durationData);
 		textToEdit.setText(Double.toString(routeData.time));
 		
-		String trackedRoute = routeData.trackedRoute;
-		String savedRoute = routeData.route;
-		GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
-		gMapFrag.updateTrackMap(GoogleHelper.decodePath(trackedRoute));
-		gMapFrag.updateRouteMap(GoogleHelper.decodePath(savedRoute));
+////		String trackedRoute = routeData.trackedRoute;
+//		String savedRoute = routeData.route;
+//        Log.i("RouteV", savedRoute);
+//        List<LatLng> list = GoogleHelper.decodePath(savedRoute);
+//        LatLng a = list.get(0);
+//        Log.i("afsadf", a.toString());
+//		GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
+////		gMapFrag.updateTrackMap(GoogleHelper.decodePath(trackedRoute));
+//        while(!gMapFrag.isReady());
+//        gMapFrag.updateRouteMap(list);
 	}
 
 	@Override

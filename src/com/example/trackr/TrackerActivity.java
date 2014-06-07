@@ -107,7 +107,7 @@ public class TrackerActivity extends FragmentActivity {
                 case 0:
                     return TrackActivity.newInstance("View " + position);
                 case 1:
-                    return GoogleMapActivity.newInstance(false, url);
+                    return GoogleMapActivity.newInstance(false, url, null);
                 default:
                     return null;
             }
