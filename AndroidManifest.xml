@@ -77,6 +77,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity android:name=".test" />
+        <activity android:name=".ListRoute"/>
 
         <service
             android:name=".TrackerService"

@@ -330,8 +330,9 @@ public class GoogleMapActivity extends Fragment implements
         fixCamera();
     }
 
-    public void fixBearing(float bearing) {
-        GoogleHelper.moveCamera(mMap.getCameraPosition().target,
+    public void fixBearing(float bearing, LatLng position) {
+
+        GoogleHelper.moveCamera(position == null ? mMap.getCameraPosition().target : position,
                      bearing , mMap.getCameraPosition().zoom, mMap);
     }
 

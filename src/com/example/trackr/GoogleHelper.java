@@ -136,7 +136,7 @@ public class GoogleHelper {
                 .zoom(zoom)
                 .bearing(bearing)
                 .build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(myPosition), null);
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(myPosition));
     }
 
     public static String geoToAdress(LatLng latLng, Geocoder mGeocoder) {

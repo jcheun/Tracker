@@ -174,7 +174,7 @@ public class TrackActivity extends Fragment {
 		GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager()
 				.findFragmentByTag("android:switcher:" + R.id.pager + ":" + 1);
 		gMapFrag.updateTrackMap(activity.getCurrentPoints());
-		gMapFrag.fixBearing(activity.getCurrentBearing());
+		gMapFrag.fixBearing(activity.getCurrentBearing(), activity.getCurrentPosition());
 	}
 
 	private void updateDisplay() {

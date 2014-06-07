@@ -74,15 +74,13 @@ public class TrackerService extends Service implements
     @Override
     public void onLocationChanged(Location location) {
         if (location == null) return;
+        if (!logging) return;
         cSpeed = location.getSpeed();
         if(mPoints.isEmpty()) {
             pLocation = location;
-//            Marker marker = mMap.addMarker(new MarkerOptions()
-//                    .position(new LatLng(location.getLatitude(), location.getLongitude())));
             mPoints.add(new LatLng(location.getLatitude(), location.getLongitude()));
             mPoints.add(new LatLng(location.getLatitude(), location.getLongitude()));
         } else {
-
             if(location.distanceTo(pLocation) >= 10) {
                 mPoints.add(new LatLng(location.getLatitude(), location.getLongitude()));
                 cBearing = location.bearingTo(pLocation);
@@ -113,6 +111,13 @@ public class TrackerService extends Service implements
 
     public List<LatLng> getCurrentPoints() {
         return mPoints;
+    }
+
+    public LatLng getCurrnetLocation() {
+        if(pLocation == null)
+            return null;
+        else
+            return new LatLng(pLocation.getLatitude(), pLocation.getLongitude());
     }
 
     public long getFinalTime() {
