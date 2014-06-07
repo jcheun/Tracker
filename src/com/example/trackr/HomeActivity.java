@@ -94,7 +94,7 @@ public class HomeActivity extends Activity {
 	}
 
 	public void viewProfile(View V) {
-        Intent intent = new Intent(this, test.class);
+        Intent intent = new Intent(this, ListRoute.class);
         startActivity(intent);
 	}
 
@@ -113,14 +113,19 @@ public class HomeActivity extends Activity {
     public static data getCustomRoutes() {
         if(customRoutes.isEmpty()) return null;
         data tmp = customRoutes.get(customRoutes.size() - 1);
-        Log.i("Home", tmp.route);
+        Log.i("Home get custom", tmp.route);
         return tmp;
+    }
+
+    public static List<data> getAllRoutes() {
+        if(customRoutes.isEmpty()) return null;
+        return customRoutes;
     }
 
     public static data getTrackedRoutes() {
         if(trackedRoutes.isEmpty()) return null;
         data tmp = trackedRoutes.get(trackedRoutes.size() - 1);
-        Log.i("Home", tmp.trackedRoute);
+        Log.i("Home get tracked", tmp.trackedRoute);
         return tmp;
     }
     

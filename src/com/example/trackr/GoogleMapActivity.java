@@ -87,7 +87,8 @@ public class GoogleMapActivity extends Fragment implements
             track.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getActivity().finish();
+                	saveRoute();
+                	getActivity().finish();                
                     Intent intent = new Intent(getActivity(), TrackerActivity.class);
                     intent.putExtra("URL", rUrl);
                     startActivity(intent);
@@ -329,8 +330,9 @@ public class GoogleMapActivity extends Fragment implements
         fixCamera();
     }
 
-    public void fixBearing(float bearing) {
-        GoogleHelper.moveCamera(mMap.getCameraPosition().target,
+    public void fixBearing(float bearing, LatLng position) {
+
+        GoogleHelper.moveCamera(position == null ? mMap.getCameraPosition().target : position,
                      bearing , mMap.getCameraPosition().zoom, mMap);
     }
 
@@ -388,16 +390,18 @@ public class GoogleMapActivity extends Fragment implements
             route.setRoute(sLocation, dLocation, ePath);
             route.setType(data.TYPE.savedRoute);
             HomeActivity.setCustomRoutes(route);
+            Log.i(LOG_TAG, "set custom route");
         } else {
             if(!rPolyline.getPoints().isEmpty()) {
                 route = HomeActivity.getCustomRoutes();
             } else {
                 route = new data();
             }
+            Log.i(LOG_TAG, "set tracked route");
             TrackerActivity activity = (TrackerActivity) getActivity();
             route.setTrackedRoute(GoogleHelper.encodePath(mPolyline.getPoints()));
             route.setDistance(activity.getCurrentDistance());
-            route.setAltitude(activity.getAltitudes());
+            //route.setAltitude(activity.getAltitudes());
             route.setSpeed(activity.getSpeeds());
             route.setType(data.TYPE.trackedRoute);
             HomeActivity.setTrackedRoutes(route);

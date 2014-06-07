@@ -163,6 +163,10 @@ public class TrackerActivity extends FragmentActivity {
         return mService.getFinalTime();
     }
 
+    public LatLng getCurrentPosition() {
+        return mService.getCurrnetLocation();
+    }
+
 //    public long getCurrentTime() {
 //        return mService.getCurrentTime();
 //    }

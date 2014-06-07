@@ -1,44 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
     <TextView
-            android:id="@+id/textTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/timeZero"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="50.0sp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-            android:layout_marginTop="149dp"/>
+        android:id="@+id/textTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp"
+        android:text="@string/timeZero"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50.0sp" />
 
     <Button
-            android:id="@+id/Start"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="56dp"
-            android:text="@string/start" />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Dist"
-            android:id="@+id/distTravel"
-            android:layout_centerVertical="true" android:layout_toLeftOf="@+id/Start"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="ft/s"
-            android:id="@+id/currentSpeed" android:layout_alignTop="@+id/distTravel" android:layout_toRightOf="@+id/Start"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stop"
-            android:id="@+id/btnStop" android:layout_alignTop="@+id/Start" android:layout_toRightOf="@+id/currentSpeed"/>
+        android:id="@+id/Start"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:text="@string/start" />
 
+    <TextView
+        android:id="@+id/distTravel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/Start"
+        android:text="Dist"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/currentSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/distTravel"
+        android:layout_toRightOf="@+id/Start"
+        android:text="ft/s"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Start"
+        android:layout_toRightOf="@+id/currentSpeed"
+        android:text="Finish" />
 
 </RelativeLayout>
