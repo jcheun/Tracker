@@ -29,6 +29,8 @@ public class TrackerService extends Service implements
     private LocationClient mLocationClient;
 
     private List<LatLng> mPoints;
+    private List<Double> speeds;
+    private List<Double> altitudes;
     private Location pLocation = null;
 
     private double cSpeed = 0;
@@ -36,6 +38,13 @@ public class TrackerService extends Service implements
     private float cBearing = 0;
 
     private boolean running = false;
+    private boolean logging = false;
+
+
+    private long startTime = 0L;
+    private long timeMilli = 0L;
+    private long timeSwap = 0L;
+    private long finalTime = 0L;
 
     IBinder mBinder = new MyBinder();
 
@@ -50,7 +59,8 @@ public class TrackerService extends Service implements
             mLocationClient = new LocationClient(getApplicationContext(), this, this);
             mLocationClient.connect();
         }
-
+        speeds = new ArrayList<Double>();
+        altitudes = new ArrayList<Double>();
         mPoints = new ArrayList<LatLng>();
         running = true;
         return START_STICKY;
@@ -77,9 +87,9 @@ public class TrackerService extends Service implements
                 mPoints.add(new LatLng(location.getLatitude(), location.getLongitude()));
                 cBearing = location.bearingTo(pLocation);
                 if (cBearing <180) cBearing+= 180;
-//                GoogleHelper.moveCamera(new LatLng(location.getLatitude(), location.getLongitude()),
-//                        bearing , mMap.getCameraPosition().zoom, mMap);
                 cDistance += location.distanceTo(pLocation);
+                speeds.add(cSpeed);
+                altitudes.add(location.getAltitude());
                 pLocation = location;
             } else {
                 mPoints.set(mPoints.size()-1,new LatLng(location.getLatitude(), location.getLongitude()));
@@ -88,8 +98,25 @@ public class TrackerService extends Service implements
     }
 
 
+    public long getTime() {
+        timeMilli = SystemClock.uptimeMillis() - startTime;
+        return finalTime = timeSwap + timeMilli;
+    }
+
+    public List<Double> getSpeeds() {
+        return speeds;
+    }
+
+    public List<Double> getAltitudes() {
+        return altitudes;
+    }
+
     public List<LatLng> getCurrentPoints() {
         return mPoints;
+    }
+
+    public long getFinalTime() {
+        return finalTime;
     }
 
     public double getCurrentSpeed() {
@@ -102,6 +129,22 @@ public class TrackerService extends Service implements
 
     public float getCurrentBearing() {
         return cBearing;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public boolean isLogging() {
+        return logging;
+    }
+
+    public void enableLogging(Boolean enable) {
+        logging = enable;
+        if(enable)
+            startTime = SystemClock.uptimeMillis();
+        else
+            timeSwap += timeMilli;
     }
 
     @Override

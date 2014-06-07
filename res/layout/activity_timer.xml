@@ -34,6 +34,11 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="ft/s"
             android:id="@+id/currentSpeed" android:layout_alignTop="@+id/distTravel" android:layout_toRightOf="@+id/Start"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/btnStop" android:layout_alignTop="@+id/Start" android:layout_toRightOf="@+id/currentSpeed"/>
 
 
 </RelativeLayout>

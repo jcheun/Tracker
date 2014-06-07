@@ -16,12 +16,11 @@ public class TrackActivity extends Fragment {
 
     private TextView textTimer;
     private Handler myHandler = new Handler();
-    private long startTime = 0L;
-    private long timeMilli = 0L;
-    private long timeSwap = 0L;
-    private long finalTime = 0L;
-    private boolean isRunning = false;
 
+    private Button btnStart;
+    private boolean isRunning = false;
+    private boolean background = false;
+    private TrackerActivity activity;
 
     public static TrackActivity newInstance(String title) {
         TrackActivity trackFragment = new TrackActivity();
@@ -41,20 +40,17 @@ public class TrackActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(LOG_TAG, "Created View");
         View view = inflater.inflate(R.layout.activity_timer, container, false);
-        TextView textView = (TextView) view.findViewById(R.id.textTimer);
-        textView.setText(getArguments().getString("Title"));
-        Button btn = (Button) view.findViewById(R.id.Start);
-        btn.setOnClickListener(new View.OnClickListener() {
+
+        activity = (TrackerActivity) getActivity();
+        btnStart = (Button) view.findViewById(R.id.Start);
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                textTimer = (TextView) getView().findViewById(R.id.textTimer);
                 if (isRunning == false) {
-                    isRunning = true;
-                    startTime = SystemClock.uptimeMillis();
-                    myHandler.postDelayed(updateTimerMethod, 0);
+                    startService();
                 } else {
-                    isRunning = false;
-                    timeSwap += timeMilli;
-                    myHandler.removeCallbacks(updateTimerMethod);
+                    pauseService();
                 }
             }
         });
@@ -65,7 +61,19 @@ public class TrackActivity extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //myHandler.postDelayed(updateTimerMethod, 0);
+        try {
+            if(activity.isLogging()) {
+                background = true;
+                startService();
+            }
+
+            if(true) {
+                updateDisplay();
+                updateMap();
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -74,28 +82,51 @@ public class TrackActivity extends Fragment {
         myHandler.removeCallbacks(updateTimerMethod);
     }
 
+    public void startService() {
+        isRunning = true;
+        btnStart.setText("Pause");
+        if(!background) {
+            activity.enableLogging(true);
+        }
+        background = false;
+        myHandler.postDelayed(updateTimerMethod, 0);
+    }
+
+    public void pauseService() {
+        isRunning = false;
+        btnStart.setText("Start");
+        activity.enableLogging(false);
+        myHandler.removeCallbacks(updateTimerMethod);
+    }
+
     private Runnable updateTimerMethod = new Runnable() {
 
         public void run() {
-//            finalTime = TrackerActivity.getCurrentTime();
-//            textTimer = (TextView) getView().findViewById(R.id.textTimer);
-//            int seconds = (int) (finalTime / 1000);
-//            int minutes = seconds / 60;
-//            seconds = seconds % 60;
-//            int milliseconds = (int) (finalTime % 1000);
-//            textTimer.setText("" + minutes + ":"
-//                    + String.format("%02d", seconds) + ":"
-//                    + String.format("%02d", milliseconds));
-//
-            TextView speed = (TextView) getActivity().findViewById(R.id.currentSpeed);
-            TextView distance = (TextView) getActivity().findViewById(R.id.distTravel);
-            GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
-            gMapFrag.updateTrackMap(TrackerActivity.getCurrentPoints());
-            gMapFrag.fixBearing(TrackerActivity.getCurrentBearing());
-            speed.setText(Double.toString(TrackerActivity.getCurrentSpeed()));
-            distance.setText(Double.toString(TrackerActivity.getCurrentDistance()));
-            myHandler.postDelayed(this, 0);
+            updateMap();
+            updateDisplay();
+            myHandler.postDelayed(this, 1000);
         }
 
     };
+
+    private void updateMap() {
+        activity.getTime();
+        GoogleMapActivity gMapFrag = (GoogleMapActivity) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":"+1);
+        gMapFrag.updateTrackMap(activity.getCurrentPoints());
+        gMapFrag.fixBearing(activity.getCurrentBearing());
+    }
+
+    private void updateDisplay() {
+        int seconds = (int) (activity.getFinalTime() / 1000);
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+
+        textTimer = (TextView) getView().findViewById(R.id.textTimer);
+        textTimer.setText(String.format("%d : %02d", minutes, seconds));
+
+        TextView speed = (TextView) getActivity().findViewById(R.id.currentSpeed);
+        TextView distance = (TextView) getActivity().findViewById(R.id.distTravel);
+        speed.setText(Double.toString(activity.getCurrentSpeed()));
+        distance.setText(Double.toString(activity.getCurrentDistance()));
+    }
 }

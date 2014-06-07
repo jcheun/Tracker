@@ -20,7 +20,7 @@ public class TrackerActivity extends FragmentActivity {
 
     public static String url = null;
 
-    public static TrackerService mService;
+    private TrackerService mService;
     private boolean serviceBound = false;
     private boolean background = false;
 
@@ -39,8 +39,16 @@ public class TrackerActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Start Service and restart handler if return from background;
         startService();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(serviceBound) {
+            unbindService(mServiceConnection);
+            background = true;
+        }
     }
 
     // Service connection
@@ -58,12 +66,13 @@ public class TrackerActivity extends FragmentActivity {
     };
 
     // Call Start and Stop function
-    public void StartStop() {
+    public Boolean StartStop() {
         if(!serviceBound) {
             startService();
         } else {
             stopService();
         }
+        return serviceBound;
     }
 
     // Start service, bind service and start the handler
@@ -80,40 +89,12 @@ public class TrackerActivity extends FragmentActivity {
         serviceBound = false;
     }
 
-    public static List<LatLng> getCurrentPoints() {
-        return mService.getCurrentPoints();
-    }
-
-    public static double getCurrentSpeed() {
-        return mService.getCurrentSpeed();
-    }
-
-    public static double getCurrentDistance() {
-        return mService.getCurrentDistance();
-    }
-
-    public static float getCurrentBearing() {
-        return mService.getCurrentBearing();
-    }
-
-//    public static long getCurrentTime() {
-//        return mService.getCurrentTime();
-//    }
-
     // Bind service
     private void bindMyService() {
         Intent intent = new Intent(this, TrackerService.class);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(serviceBound) {
-            unbindService(mServiceConnection);
-            background = true;
-        }
-    }
 
     public static class TrackerAdapter extends FragmentPagerAdapter {
         public TrackerAdapter(FragmentManager fm) {
@@ -137,4 +118,52 @@ public class TrackerActivity extends FragmentActivity {
             return 2;
         }
     }
+
+    public List<LatLng> getCurrentPoints() {
+        return mService.getCurrentPoints();
+    }
+
+    public double getCurrentSpeed() {
+        return mService.getCurrentSpeed();
+    }
+
+    public double getCurrentDistance() {
+        return mService.getCurrentDistance();
+    }
+
+    public float getCurrentBearing() {
+        return mService.getCurrentBearing();
+    }
+
+    public long getTime() {
+        return mService.getTime();
+    }
+
+    public List<Double> getSpeeds() {
+        return mService.getSpeeds();
+    }
+
+    public List<Double> getAltitudes() {
+        return mService.getAltitudes();
+    }
+
+    public void enableLogging(Boolean enable) {
+        mService.enableLogging(enable);
+    }
+
+    public boolean isLogging() {
+        return mService.isLogging();
+    }
+
+    public boolean isRunning() {
+        return mService.isRunning();
+    }
+
+    public long getFinalTime() {
+        return mService.getFinalTime();
+    }
+
+//    public long getCurrentTime() {
+//        return mService.getCurrentTime();
+//    }
 }

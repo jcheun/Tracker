@@ -381,10 +381,28 @@ public class GoogleMapActivity extends Fragment implements
     }
 
     public void saveRoute(){
-        data route = new data();
-        String ePath = GoogleHelper.encodePath(rPolyline.getPoints());
-        route.setRoute(sLocation, dLocation ,ePath);
-        HomeActivity.setCustomRoutes(route);
+        data route;
+        if(editMode) {
+            route = new data();
+            String ePath = GoogleHelper.encodePath(rPolyline.getPoints());
+            route.setRoute(sLocation, dLocation, ePath);
+            route.setType(data.TYPE.savedRoute);
+            HomeActivity.setCustomRoutes(route);
+        } else {
+            if(!rPolyline.getPoints().isEmpty()) {
+                route = HomeActivity.getCustomRoutes();
+            } else {
+                route = new data();
+            }
+            TrackerActivity activity = (TrackerActivity) getActivity();
+            route.setTrackedRoute(GoogleHelper.encodePath(mPolyline.getPoints()));
+            route.setDistance(activity.getCurrentDistance());
+            route.setAltitude(activity.getAltitudes());
+            route.setSpeed(activity.getSpeeds());
+            route.setType(data.TYPE.trackedRoute);
+            HomeActivity.setTrackedRoutes(route);
+        }
         HomeActivity.getCustomRoutes();
+        HomeActivity.getTrackedRoutes();
     }
 }

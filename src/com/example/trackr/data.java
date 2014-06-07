@@ -3,15 +3,12 @@ package com.example.trackr;
 import java.util.List;
 
 public class data {
-
-
-
     public double avgSpeed = 0;
     public double maxSpeed = 0;
     public double avgAltitude = 0;
     public double maxAltitude = 0;
     public double minAltitude = 0;
-    public int distance = 0;
+    public double distance = 0;
     public int time = 0;
 
     public List<Double> speeds;
@@ -20,6 +17,8 @@ public class data {
     public String start = "";
     public String destination = "";
     public String route = "";
+
+
     public String trackedRoute = "";
 
     public TYPE type;
@@ -58,7 +57,7 @@ public class data {
         avgAltitude /= rAltitudes.size();
     }
 
-    public void setDistance(int tDistance) {
+    public void setDistance(double tDistance) {
         distance = tDistance;
     }
 

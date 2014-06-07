@@ -19,7 +19,7 @@ public class HomeActivity extends Activity {
 	AppInfo appInfo;
 
     private static List<data> customRoutes;
-
+    private static List<data> trackedRoutes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class HomeActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
         customRoutes = new ArrayList<data>();
+        trackedRoutes = new ArrayList<data>();
 	}
 
 	@Override
@@ -76,14 +77,14 @@ public class HomeActivity extends Activity {
 
 	public void startTrack(View V) {
 		// Go to second activity
-		Intent intent = new Intent(this, CreateRouteActivity.class);
-		startActivity(intent);
+        Intent intent = new Intent(this, TrackerActivity.class);
+        startActivity(intent);
 	}
 	
 	public void mapView(View V) {
 		// Go to second activity
-		Intent intent = new Intent(this, TrackerActivity.class);
-		startActivity(intent);
+        Intent intent = new Intent(this, CreateRouteActivity.class);
+        startActivity(intent);
 	}
 
 	public void viewProfile(View V) {
@@ -99,10 +100,22 @@ public class HomeActivity extends Activity {
         customRoutes.add(route);
     }
 
-    public static void getCustomRoutes() {
-        if(customRoutes.isEmpty()) return;
-        data tmp = customRoutes.get(0);
+    public static void setTrackedRoutes(data route) {
+        trackedRoutes.add(route);
+    }
+
+    public static data getCustomRoutes() {
+        if(customRoutes.isEmpty()) return null;
+        data tmp = customRoutes.get(customRoutes.size() - 1);
         Log.i("Home", tmp.route);
+        return tmp;
+    }
+
+    public static data getTrackedRoutes() {
+        if(trackedRoutes.isEmpty()) return null;
+        data tmp = trackedRoutes.get(trackedRoutes.size() - 1);
+        Log.i("Home", tmp.trackedRoute);
+        return tmp;
     }
 	
 }
