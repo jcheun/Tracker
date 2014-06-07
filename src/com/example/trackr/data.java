@@ -10,7 +10,7 @@ public class data {
     public double minAltitude = 0;
     public double distance = 0;
     public int time = 0;
-
+    public String date;
     public List<Double> speeds;
     public List<Double> altitudes;
 
@@ -69,4 +69,7 @@ public class data {
         this.type = type;
     }
 
+    public void setData(String date){
+    	this.date = date;
+    }
 }

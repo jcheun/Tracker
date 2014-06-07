@@ -290,6 +290,9 @@ public class GoogleMapActivity extends Fragment implements
         mPolyline.setPoints(point);
     }
 
+    public void updateRouteMap(List<LatLng> point) {
+        rPolyline.setPoints(point);
+    }
     public void updateMap (String url) {
 
         String jsonResults = GoogleHelper.getJson(url);
