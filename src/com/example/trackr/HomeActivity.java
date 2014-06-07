@@ -113,14 +113,14 @@ public class HomeActivity extends Activity {
     public static data getCustomRoutes() {
         if(customRoutes.isEmpty()) return null;
         data tmp = customRoutes.get(customRoutes.size() - 1);
-        Log.i("Home", tmp.route);
+        Log.i("Home get custom", tmp.route);
         return tmp;
     }
 
     public static data getTrackedRoutes() {
         if(trackedRoutes.isEmpty()) return null;
         data tmp = trackedRoutes.get(trackedRoutes.size() - 1);
-        Log.i("Home", tmp.trackedRoute);
+        Log.i("Home get tracked", tmp.trackedRoute);
         return tmp;
     }
     
