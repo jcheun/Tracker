@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.URLEncoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,13 +49,13 @@ public class TrackActivity extends Fragment {
 	private boolean isRunning = false;
 	private boolean background = false;
 	private TrackerActivity activity;
-	private String loginURL = "https://trackr121.appspot.com/trackr/default/put.json/";
+	private String putRouteURL = "https://trackr121.appspot.com/trackr/default/putroute.json/behappy/";
 	private SharedPreferences settings;
 	// Sharedpref file name
     private static final String PREF_NAME = "AndroidHivePref";
 	
     public String android_id;
-
+    public data routeData;
 	public static TrackActivity newInstance(String title) {
 		TrackActivity trackFragment = new TrackActivity();
 		Bundle bundle = new Bundle();
@@ -99,37 +103,14 @@ public class TrackActivity extends Fragment {
 						.findFragmentByTag(
 								"android:switcher:" + R.id.pager + ":" + 1);
 				gMapFrag.saveRoute();
-				data routeData = HomeActivity.getTrackedRoutes();
-				double avg_speed = routeData.avgSpeed;
-				double max_speed = routeData.maxSpeed;
-				double distance = routeData.distance;
-				int duration = routeData.time;
-				String start = routeData.start;
-				String destination = routeData.destination;
-				String tracked_route = routeData.trackedRoute;
-				String route = routeData.route;
-//				JSONObject json = new JSONObject();
-//				try {
-//					json.put("destination", routeData.destination);
-//					json.put("avg_speed", routeData.avgSpeed);
-//					json.put("distance", routeData.distance);
-//					json.put("max_speed", routeData.maxSpeed);
-//					json.put("duration", routeData.time);
-//					json.put("route", routeData.route);
-//					json.put("start", routeData.start);
-//					json.put("tracked_route", routeData.trackedRoute);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
+				routeData = HomeActivity.getTrackedRoutes();
 				BackgroundDownloader downloader = new BackgroundDownloader();
-				String updatedURL = loginURL.concat("behappy/").concat(settings.getString("username", null)+"/")
-												.concat(android_id+"/").concat(avg_speed+"/").concat(max_speed+"/")
-												.concat(distance+"/").concat(duration+"/")
-												.concat(start+"/").concat(destination+"/")
-												.concat(route+"/").concat(tracked_route+"/");
-				Log.d("URL:", updatedURL);
-				String safeUrl = URLEncoder.encode(updatedURL);
-				downloader.execute(safeUrl);
+
+				putRouteURL = putRouteURL.concat(settings.getString("username", null)+"/")
+												.concat(android_id+"/");
+				Log.d("url:",putRouteURL);
+				downloader.execute(putRouteURL);
+				
 			}
 
 		});
@@ -212,6 +193,56 @@ public class TrackActivity extends Fragment {
 		distance.setText(Double.toString(activity.getCurrentDistance()));
 	}
 
+	public static String POST(URI url, data routeData){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+        	Log.d("TrackActivity", "1");
+            HttpClient httpclient = new DefaultHttpClient();
+            Log.d("TrackActivity", "2");
+            HttpPost httpPost = new HttpPost(url);
+            Log.d("TrackActivity", "3");	
+            String json = "";
+            
+            JSONObject jsonObject = new JSONObject();
+			jsonObject.put("destination", routeData.destination);			
+			jsonObject.put("avg_speed", "0.0");
+			jsonObject.put("distance", routeData.distance);
+			jsonObject.put("max_speed", routeData.maxSpeed);
+			jsonObject.put("duration", routeData.time);
+			jsonObject.put("route", routeData.route);
+			jsonObject.put("start", routeData.start);
+			jsonObject.put("tracked_route", routeData.trackedRoute);
+			
+            json = jsonObject.toString();
+            
+
+            StringEntity se = new StringEntity(json);
+            
+            httpPost.setEntity(se);
+            
+            httpPost.setHeader("Accept", "application/json");
+            
+            httpPost.setHeader("Content-type", "application/json");
+            	
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            
+            inputStream = httpResponse.getEntity().getContent();
+            
+            if(inputStream != null)
+                result = ConvertStreamToString(inputStream);
+            else
+                result = "Did not work!";
+ 
+        } catch (Exception e) {
+        	e.printStackTrace();
+            Log.d("InputStream", "gfdsg");
+        }
+ 
+        // 11. return result
+        return result;
+    }
+	
 	private class BackgroundDownloader extends
 			AsyncTask<String, String, String> {
 
@@ -222,46 +253,7 @@ public class TrackActivity extends Fragment {
 			String downloadedString = null;
 			String urlString = urls[0];
 			URI url = URI.create(urlString);
-			int numTries = 0;
-			while (downloadedString == null
-					&& numTries < MAX_SETUP_DOWNLOAD_TRIES && !isCancelled()) {
-				numTries++;
-				HttpPost request = new HttpPost(url);
-				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpResponse response = null;
-				try {
-					response = httpClient.execute(request);
-				} catch (ClientProtocolException ex) {
-					Log.e(LOG_TAG, ex.toString());
-				} catch (IOException ex) {
-					Log.e(LOG_TAG, ex.toString());
-				}
-				if (response != null) {
-					// Checks the status code.
-					int statusCode = response.getStatusLine().getStatusCode();
-					Log.d(LOG_TAG, "Status code: " + statusCode);
-
-					if (statusCode == HttpURLConnection.HTTP_OK) {
-						// Correct response. Reads the real result.
-						// Extracts the string content of the response.
-						HttpEntity entity = response.getEntity();
-						InputStream iStream = null;
-						try {
-							iStream = entity.getContent();
-						} catch (IOException ex) {
-							Log.e(LOG_TAG, ex.toString());
-						}
-						if (iStream != null) {
-							downloadedString = ConvertStreamToString(iStream);
-							Log.d(LOG_TAG, "Received string: "
-									+ downloadedString);
-							return downloadedString;
-						}
-					}
-				}
-			}
-			// Returns the instructions, if any.
-			return downloadedString;
+			return POST(url,routeData);
 		}
 
 		// After making the HTTP request
@@ -271,17 +263,8 @@ public class TrackActivity extends Fragment {
 			CharSequence text;
 			String result;
 			int duration = Toast.LENGTH_SHORT;
-
-			try {
-				JSONObject jsonObj = new JSONObject(s);
-				text = jsonObj.getString("result");
-				toast = Toast.makeText(context, text, duration);
-				toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
-				toast.show();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Toast.makeText(activity.getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+			Log.d("server response:", s);
 		}
 	}
 
