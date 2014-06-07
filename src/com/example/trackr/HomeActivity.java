@@ -124,6 +124,12 @@ public class HomeActivity extends Activity {
         return tmp;
     }
     
+    public static data getTrackedRoute(int index) {
+    	if(trackedRoutes.isEmpty()) return null;
+    	data tmp = trackedRoutes.get(index);
+    	return tmp;
+    }
+    
     public void clickLogout(View v){
     	Editor editor = settings.edit();
 		editor.clear();
