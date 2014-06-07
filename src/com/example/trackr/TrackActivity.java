@@ -53,9 +53,9 @@ public class TrackActivity extends Fragment {
 	private SharedPreferences settings;
 	// Sharedpref file name
     private static final String PREF_NAME = "AndroidHivePref";
-	
     public String android_id;
     public data routeData;
+    
 	public static TrackActivity newInstance(String title) {
 		TrackActivity trackFragment = new TrackActivity();
 		Bundle bundle = new Bundle();
