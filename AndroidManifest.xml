@@ -36,7 +36,7 @@
 		    android:value="AIzaSyDOUadWZkWflTjom5GHUkCb-adXMhcLkRs"/>
         
         <activity
-            android:name="com.example.trackr.HomeActivity"
+            android:name="com.example.trackr.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,11 +45,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.trackr.HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
             android:name="com.example.trackr.TrackActivity"
             android:label="@string/title_activity_track" >
         </activity>
         <activity
             android:name="com.example.trackr.MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
+        <activity
+            android:name="com.example.trackr.RegisterActivity"
             android:label="@string/title_activity_map" >
         </activity>
         <activity android:name=".TrackerActivity"/>
