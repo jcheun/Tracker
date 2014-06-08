@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -8,69 +8,84 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp" android:layout_alignParentTop="true" android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/dateData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Distance:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/date" android:layout_alignLeft="@+id/duration"
+        android:layout_alignStart="@+id/duration"/>
 
     <TextView
         android:id="@+id/distanceData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/distance" android:layout_alignLeft="@+id/dateData"
+        android:layout_alignStart="@+id/dateData"/>
 
     <TextView
-        android:id="@+id/avgSpeed"
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Average Speed:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:text="Distance:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/date" android:layout_alignLeft="@+id/date" android:layout_alignStart="@+id/date"
+        android:layout_marginTop="50dp"/>
     <TextView
         android:id="@+id/avgSpeedData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/maxSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max Speed:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/avgSpeed" android:layout_alignLeft="@+id/distanceData"
+        android:layout_alignStart="@+id/distanceData"/>
 
     <TextView
         android:id="@+id/maxSpeedData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/maxSpeed" android:layout_alignLeft="@+id/duration"
+        android:layout_alignStart="@+id/duration"/>
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/avgSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:text="Average Speed:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/distance" android:layout_alignLeft="@+id/distance"
+        android:layout_alignStart="@+id/distance" android:layout_marginTop="50dp"/>
     <TextView
         android:id="@+id/durationData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/duration" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/maxSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Speed:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/avgSpeed" android:layout_alignLeft="@+id/avgSpeed"
+        android:layout_alignStart="@+id/avgSpeed" android:layout_marginTop="50dp"/>
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration:"
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/maxSpeed" android:layout_alignRight="@+id/distance"
+        android:layout_alignEnd="@+id/distance" android:layout_marginTop="50dp"/>
 
-</LinearLayout>
+</RelativeLayout>

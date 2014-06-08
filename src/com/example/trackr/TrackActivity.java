@@ -182,17 +182,19 @@ public class TrackActivity extends Fragment {
     private void updateDisplay() {
         int seconds = (int) (activity.getFinalTime() / 1000);
         int minutes = seconds / 60;
+        int hour = minutes /60;
+        minutes -= 60 * hour;
         seconds = seconds % 60;
 
         textTimer = (TextView) getView().findViewById(R.id.textTimer);
-        textTimer.setText(String.format("%d : %02d", minutes, seconds));
+        textTimer.setText(String.format("%02d:%02d:%02d", hour, minutes, seconds));
 
         TextView speed = (TextView) getActivity().findViewById(
                 R.id.currentSpeed);
         TextView distance = (TextView) getActivity().findViewById(
                 R.id.distTravel);
-        speed.setText(String.format("%.02f",activity.getCurrentSpeed()));
-        distance.setText(String.format("%.02f",activity.getCurrentDistance()));
+        speed.setText(String.format("%.02f mph",activity.getCurrentSpeed()*2.2369362920544));
+        distance.setText(String.format("%.02f mi",activity.getCurrentDistance()*0.000621371));
     }
 
     public static String POST(URI url, data routeData){
@@ -208,7 +210,7 @@ public class TrackActivity extends Fragment {
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("destination", routeData.destination);
-            jsonObject.put("avg_speed", "0.0");
+            jsonObject.put("avg_speed", routeData.avgSpeed);
             jsonObject.put("distance", routeData.distance);
             jsonObject.put("max_speed", routeData.maxSpeed);
             Log.i(LOG_TAG, Double.toString( routeData.time));

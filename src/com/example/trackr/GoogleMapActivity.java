@@ -97,13 +97,13 @@ public class GoogleMapActivity extends Fragment implements
                 }
             });
 
-            Button save = (Button) view.findViewById(R.id.saveRoute);
-            save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    saveRoute();
-                }
-            });
+//            Button save = (Button) view.findViewById(R.id.saveRoute);
+//            save.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    saveRoute();
+//                }
+//            });
 
         } else {
             view = inflater.inflate(R.layout.activity_map, container, false);
@@ -298,7 +298,6 @@ public class GoogleMapActivity extends Fragment implements
         url.append("?origin=" + sLocation.replaceAll(" ", "%20"));
         url.append("&destination=" + dLocation.replaceAll(" ", "%20"));
         url.append("&waypoints=optimize:true%7C");
-
         for (LatLng latlng : wayPoints.values()) {
             url.append(latlng.toString().replaceAll("[^0-9,.-]", "") + "%7C");
         }
