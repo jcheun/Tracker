@@ -88,6 +88,11 @@ public class HomeActivity extends Activity {
         startActivity(intent);
     }
 
+    public void TrackView(View V) {
+        Intent intent = new Intent(this, TrackerActivity.class);
+        startActivity(intent);
+    }
+
     // View Previous Tracked Routes
     public void viewProfile(View V) {
         Intent intent = new Intent(this, ListRoute.class);
@@ -128,6 +133,10 @@ public class HomeActivity extends Activity {
     public static data getTrackedRoute(int index) {
         if(trackedRoutes.isEmpty()) return null;
         data tmp = trackedRoutes.get(index);
+        for(data tmp2: trackedRoutes) {
+            Log.i("abc", tmp2.sDestination);
+        }
+
         return tmp;
     }
 

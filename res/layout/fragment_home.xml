@@ -12,12 +12,12 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:onClick="viewProfile"
-        android:text="@string/viewProfile" android:layout_below="@+id/map" android:minWidth="375dp"
+        android:text="@string/viewProfile" android:minWidth="375dp"
         android:minHeight="100dp" android:textSize="27dp" android:textStyle="bold" android:typeface="sans"
-        android:background="#FFFFFF"/>
+        android:background="#FFFFFF"
+        android:layout_below="@+id/homeMap" android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
     <TextView
         android:id="@+id/textView1"
@@ -33,21 +33,29 @@
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="24dp"
         android:onClick="mapView"
         android:text="@string/btnCreate" android:textAlignment="gravity" android:minWidth="375dp"
         android:minHeight="100dp" android:textSize="27dp" android:textStyle="bold" android:typeface="sans"
-        android:background="#FFFFFF"/>
+        android:background="#FFFFFF"
+        android:layout_below="@+id/textView1" android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
+    <Button android:id="@+id/homeMap" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:onClick="TrackView" android:text="ViewMap" android:textAlignment="gravity"
+            android:minWidth="375dp" android:minHeight="100dp" android:textSize="27dp" android:textStyle="bold"
+            android:typeface="sans" android:background="#FFFFFF"
+            android:layout_below="@+id/map" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="clickLogout"
-        android:text="@string/logout" android:layout_below="@+id/button2" android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" android:minWidth="375dp" android:minHeight="100dp" android:textSize="27dp"
-        android:textStyle="bold" android:typeface="sans" android:background="#FFFFFF"/>
+        android:text="@string/logout"
+        android:minWidth="375dp" android:minHeight="100dp" android:textSize="27dp"
+        android:textStyle="bold" android:typeface="sans" android:background="#FFFFFF"
+        android:layout_below="@+id/button2" android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

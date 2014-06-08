@@ -191,8 +191,8 @@ public class TrackActivity extends Fragment {
                 R.id.currentSpeed);
         TextView distance = (TextView) getActivity().findViewById(
                 R.id.distTravel);
-        speed.setText(Double.toString(activity.getCurrentSpeed()));
-        distance.setText(Double.toString(activity.getCurrentDistance()));
+        speed.setText(String.format("%.02f",activity.getCurrentSpeed()));
+        distance.setText(String.format("%.02f",activity.getCurrentDistance()));
     }
 
     public static String POST(URI url, data routeData){

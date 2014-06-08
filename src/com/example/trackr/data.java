@@ -56,10 +56,12 @@ public class data {
     public void setSpeed(List<Double> rSpeeds) {
         speeds = rSpeeds;
         for(double speed : rSpeeds) {
-            if(speed > maxSpeed) maxSpeed = speed;
+            if(speed > maxSpeed) maxSpeed = speed * 2.2369362920544;
             avgSpeed += speed;
+            Log.i("CD", Double.toString(speed));
         }
         avgSpeed /= rSpeeds.size();
+        avgSpeed *= 2.2369362920544;
     }
 
     public void setAltitude(List<Double> rAltitudes) {
@@ -74,7 +76,9 @@ public class data {
     }
 
     public void setDistance(double tDistance) {
-        distance = tDistance;
+        distance = tDistance * 0.00062137;
+//        distance = (int) distance * 100;
+//        distance /= 100;
     }
 
     public void setTime(int tTime) {
