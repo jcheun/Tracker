@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		checkLoggedIn();
 	}
 
 	public void login(View v) {
@@ -125,6 +125,7 @@ public class LoginActivity extends Activity {
 		Log.d(LOG_TAG, "checking if logged in ..." + loggedIn);
 		loggedIn = settings.getBoolean("loggedIn", false);
 		if(loggedIn == true){
+			Log.d(LOG_TAG, "logged in ..." + loggedIn);
 			Intent intent = new Intent(this, HomeActivity.class);
 			startActivity(intent);
 		}

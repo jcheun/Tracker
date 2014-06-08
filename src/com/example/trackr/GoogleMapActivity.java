@@ -186,6 +186,25 @@ public class GoogleMapActivity extends Fragment implements
         Location mLocation = mLocationClient.getLastLocation();
         GoogleHelper.moveCamera(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),
                 0.0f, 15.5f, mMap);
+
+        // fix Camera to show route if there is a tracked route
+        List<LatLng> points = mPolyline.getPoints();
+        if(points.size() >= 2) {
+            LatLng maxLat, minLat, maxLong, minLong;
+            maxLat = minLat = maxLong = minLong = points.get(0);
+            for(LatLng latlng : points) {
+                if(latlng.latitude < minLat.latitude) minLat = latlng;
+                if(latlng.latitude > maxLat.latitude) maxLat = latlng;
+                if(latlng.longitude < minLong.longitude) minLong = latlng;
+                if(latlng.longitude > maxLong.longitude) maxLong = latlng;
+            }
+            LatLngBounds.Builder bound = new LatLngBounds.Builder();
+            bound.include(minLat);
+            bound.include(maxLat);
+            bound.include(minLong);
+            bound.include(maxLong);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bound.build(), 50));
+        }
 //        if(!getArguments().getBoolean("EditMode")) {
 //            setGPSInterval(1000);
 //        }
