@@ -22,6 +22,7 @@ public class HomeActivity extends Activity {
 
     private static List<data> customRoutes;
     private static List<data> trackedRoutes;
+    
     private SharedPreferences settings;
 	// Sharedpref file name
     private static final String PREF_NAME = "AndroidHivePref";
@@ -141,7 +142,7 @@ public class HomeActivity extends Activity {
     	data tmp = trackedRoutes.get(index);
     	return tmp;
     }
-    
+      
     public void clickLogout(View v){
     	Editor editor = settings.edit();
 		editor.clear();

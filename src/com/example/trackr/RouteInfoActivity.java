@@ -27,6 +27,7 @@ public class RouteInfoActivity extends FragmentActivity {
     public data routeData = null;
     static String cRoute = null;
     static String tRoute = null;
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager);
@@ -35,8 +36,8 @@ public class RouteInfoActivity extends FragmentActivity {
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
         dataIndex = getIntent().getIntExtra("dataIndex", dataIndex);
         routeData = HomeActivity.getTrackedRoute(dataIndex);
-        cRoute = routeData.route;
-        tRoute = routeData.trackedRoute;
+        cRoute = routeData.sRoute;
+        tRoute = routeData.sTrackedRoute;
         if(routeData == null) Log.i("NULL", "NULL");
         mViewPager.setAdapter(mFragAdapter);
         
