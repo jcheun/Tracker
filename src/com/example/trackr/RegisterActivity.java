@@ -41,7 +41,7 @@ public class RegisterActivity extends Activity {
 	private final String key = "behappy";
 	private String loginURL = "https://trackr121.appspot.com/trackr/default/sign_up.json/";
 	private static final int MAX_SETUP_DOWNLOAD_TRIES = 3;
-	private static final String LOG_TAG = "loginPoster";
+	private static final String LOG_TAG = "RegisterPoster";
 	public boolean loggedIn;
 	private SharedPreferences settings;
 	// Sharedpref file name
@@ -96,7 +96,7 @@ public class RegisterActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		checkLoggedIn();
 	}
 
 	public void registerClick(View v) {
@@ -141,9 +141,10 @@ public class RegisterActivity extends Activity {
 
 	@SuppressWarnings("null")
 	public void checkLoggedIn() {
-		Log.d(LOG_TAG, "checking if logged in ..." + loggedIn);
+		Log.d(LOG_TAG, "checking if logged in ...");
 		loggedIn = settings.getBoolean("loggedIn", false);
 		if (loggedIn == true) {
+			Log.d(LOG_TAG, "logged in..." + loggedIn);
 			Intent intent = new Intent(this, HomeActivity.class);
 			startActivity(intent);
 		}

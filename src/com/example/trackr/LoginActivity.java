@@ -120,7 +120,6 @@ public class LoginActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	@SuppressWarnings("null")
 	public void checkLoggedIn(){
 		Log.d(LOG_TAG, "checking if logged in ..." + loggedIn);
 		loggedIn = settings.getBoolean("loggedIn", false);

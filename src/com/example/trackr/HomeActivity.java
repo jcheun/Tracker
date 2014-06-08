@@ -19,7 +19,7 @@ import java.util.List;
 public class HomeActivity extends Activity {
 
     AppInfo appInfo;
-
+    private boolean loggedIn = false;
     private static List<data> customRoutes;
     private static List<data> trackedRoutes;
 
@@ -79,7 +79,7 @@ public class HomeActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        checkLoggedIn();
     }
 
     // Create a Route
@@ -140,6 +140,16 @@ public class HomeActivity extends Activity {
         return tmp;
     }
 
+	@SuppressWarnings("null")
+	public void checkLoggedIn(){
+
+		loggedIn = settings.getBoolean("loggedIn", false);
+		if(loggedIn == false){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+	}
+	
     public void clickLogout(View v){
         Editor editor = settings.edit();
         editor.clear();
