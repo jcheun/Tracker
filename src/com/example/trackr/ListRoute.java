@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -33,13 +34,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.exchu.android.newsreader.MainActivity.BackgroundDownloader;
-
 public class ListRoute extends Activity {
 	private static final String LOG_TAG = null;
-	private List<data> rdata = null;
+	private List<data> rdata;
 	private ListView list;
-	private static String DOWNLOAD_URL = "https://trackr121.appspot.com/trackr/default/getallroutes.json/";
+	private static String DOWNLOAD_URL = "https://trackr121.appspot.com/trackr/default/getallroutes.json/behappy/";
 	private SharedPreferences settings;
 	// Sharedpref file name
     private static final String PREF_NAME = "AndroidHivePref";
@@ -49,7 +48,7 @@ public class ListRoute extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_layout);
-
+		rdata = new ArrayList<data>();
 		list = (ListView) findViewById(R.id.listView);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -81,8 +80,9 @@ public class ListRoute extends Activity {
 		BackgroundDownloader downloader = new BackgroundDownloader();
 		DOWNLOAD_URL = DOWNLOAD_URL.concat(settings.getString("username", null)+"/")
 				.concat(android_id+"/");
+		Log.d("executing request:", DOWNLOAD_URL);
 		downloader.execute(DOWNLOAD_URL);
-		updateRoutes();
+		
 	}
 
 	public class CustomAdapter extends ArrayAdapter<data> {
@@ -180,12 +180,16 @@ public class ListRoute extends Activity {
 					data routeData = new data();
 					routeData.setServerData(route);
 					rdata.add(routeData);
+					HomeActivity.setTrackedRoutes(routeData);
+					Log.d("rdata size:", rdata.size()+"");
 				}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			updateRoutes();
 		}
 	}
 

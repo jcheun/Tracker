@@ -103,7 +103,7 @@ public class TrackActivity extends Fragment {
 						.findFragmentByTag(
 								"android:switcher:" + R.id.pager + ":" + 1);
 				gMapFrag.saveRoute();
-				routeData = HomeActivity.getTrackedRoutes();
+				routeData = HomeActivity.getCustomRoutes();
 				BackgroundDownloader downloader = new BackgroundDownloader();
 
 				putRouteURL = putRouteURL.concat(settings.getString("username", null)+"/")

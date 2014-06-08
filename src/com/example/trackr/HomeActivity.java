@@ -22,7 +22,6 @@ public class HomeActivity extends Activity {
 
     private static List<data> customRoutes;
     private static List<data> trackedRoutes;
-    private static List<data> serverData;
     
     private SharedPreferences settings;
 	// Sharedpref file name
@@ -136,13 +135,7 @@ public class HomeActivity extends Activity {
     	data tmp = trackedRoutes.get(index);
     	return tmp;
     }
-    
-    public static data getServerData(int index){
-    	if(trackedRoutes.isEmpty()) return null;
-    	data tmp = trackedRoutes.get(index);
-    	return tmp;
-    }
-    
+      
     public void clickLogout(View v){
     	Editor editor = settings.edit();
 		editor.clear();

@@ -5,6 +5,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class data {
     public double avgSpeed = 0;
     public double maxSpeed = 0;
@@ -89,6 +91,7 @@ public class data {
     
     public void setServerData(JSONObject data){
     	try {
+    		Log.d("setting Data", data.toString());
 			this.sAvgSpeed = data.getString("avg_speed");
 			this.sDate = data.getString("date");
 			this.sDestination = data.getString("destination");
@@ -98,6 +101,7 @@ public class data {
 			this.sStart = data.getString("start");
 			this.sTrackedRoute = data.getString("tracked_route");
 			this.sRoute = data.getString("route");
+			Log.d("sRout", sRoute);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
