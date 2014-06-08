@@ -412,7 +412,7 @@ public class GoogleMapActivity extends Fragment implements
             Log.i(LOG_TAG, "set custom route");
         } else {
             if(!rPolyline.getPoints().isEmpty()) {
-                route = HomeActivity.getCustomRoutes();
+                route = HomeActivity.getLCustomRoutes();
             } else {
                 route = new data();
             }
@@ -423,9 +423,7 @@ public class GoogleMapActivity extends Fragment implements
             //route.setAltitude(activity.getAltitudes());
             route.setSpeed(activity.getSpeeds());
             route.setType(data.TYPE.trackedRoute);
-            HomeActivity.setCustomRoutes(route);
+            HomeActivity.set(route);
         }
-        HomeActivity.getCustomRoutes();
-        HomeActivity.getTrackedRoutes();
     }
 }

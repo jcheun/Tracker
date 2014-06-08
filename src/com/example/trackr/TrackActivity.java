@@ -103,7 +103,7 @@ public class TrackActivity extends Fragment {
 						.findFragmentByTag(
 								"android:switcher:" + R.id.pager + ":" + 1);
 				gMapFrag.saveRoute();
-				routeData = HomeActivity.getTrackedRoutes();
+				routeData = HomeActivity.getLCustomRoutes()
 				BackgroundDownloader downloader = new BackgroundDownloader();
 
 				putRouteURL = putRouteURL.concat(settings.getString("username", null)+"/")
@@ -205,9 +205,11 @@ public class TrackActivity extends Fragment {
             HttpPost httpPost = new HttpPost(url);
             Log.d("TrackActivity", "3");	
             String json = "";
-            
+
+            if(routeData == null) Log.i(LOG_TAG, "NULNULNUL");
+
             JSONObject jsonObject = new JSONObject();
-			jsonObject.put("destination", routeData.destination);			
+			jsonObject.put("destination", routeData.destination);
 			jsonObject.put("avg_speed", "0.0");
 			jsonObject.put("distance", routeData.distance);
 			jsonObject.put("max_speed", routeData.maxSpeed);

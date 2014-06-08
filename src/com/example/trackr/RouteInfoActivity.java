@@ -34,7 +34,7 @@ public class RouteInfoActivity extends FragmentActivity {
         TrackerAdapter mFragAdapter = new TrackerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
         dataIndex = getIntent().getIntExtra("dataIndex", dataIndex);
-        routeData = HomeActivity.getCustomRoutes();
+        routeData = HomeActivity.getTrackedRoute(dataIndex);
         cRoute = routeData.route;
         tRoute = routeData.trackedRoute;
         if(routeData == null) Log.i("NULL", "NULL");
