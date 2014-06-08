@@ -12,7 +12,7 @@
     <string name="back">Back</string>
     <string name="title_activity_track">Track Your Route</string>
     <string name="title_activity_home">Trackr Home</string>
-    <string name="map">Map</string>
+    <string name="btnCreate">Create Map</string>
 	<string name="latitute">Latitute: </string>
 	<string name="longitutde">Longitutde: </string>
 	<string name="speed">Speed: </string>

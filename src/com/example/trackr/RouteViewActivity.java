@@ -81,15 +81,20 @@ public class RouteViewActivity extends Fragment {
 	public void onResume() {
 		super.onResume();
 		textToEdit = (TextView) getActivity().findViewById(R.id.dateData);
-		textToEdit.setText(Double.toString(routeData.time));
+		textToEdit.setText(routeData.sDate);
 		textToEdit = (TextView) getActivity().findViewById(R.id.distanceData);
-		textToEdit.setText(Double.toString(routeData.distance));
+		textToEdit.setText(routeData.sDistance);
 		textToEdit = (TextView) getActivity().findViewById(R.id.avgSpeedData);
-		textToEdit.setText(Double.toString(routeData.avgSpeed));
+		textToEdit.setText(routeData.sAvgSpeed);
 		textToEdit = (TextView) getActivity().findViewById(R.id.maxSpeedData);
-		textToEdit.setText(Double.toString(routeData.maxSpeed));
+		textToEdit.setText(routeData.sMaxSpeed);
 		textToEdit = (TextView) getActivity().findViewById(R.id.durationData);
-		textToEdit.setText(Double.toString(routeData.time));
+        int seconds = Integer.valueOf(routeData.sDuration) / 1000;
+        int minutes = seconds / 60;
+        int hours = minutes/60;
+        seconds = seconds % 60;
+
+		textToEdit.setText(String.format("%02d : %02d : %02d", hours, minutes, seconds));
 		
 ////		String trackedRoute = routeData.trackedRoute;
 //		String savedRoute = routeData.route;

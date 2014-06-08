@@ -88,8 +88,8 @@ public class GoogleMapActivity extends Fragment implements
             track.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                	saveRoute();
-                	getActivity().finish();                
+                    saveRoute();
+                    getActivity().finish();
                     Intent intent = new Intent(getActivity(), TrackerActivity.class);
                     String s = GoogleHelper.encodePath(rPolyline.getPoints());
                     intent.putExtra("URL", s);
@@ -142,11 +142,16 @@ public class GoogleMapActivity extends Fragment implements
             if(getArguments().getString("CRoute") != null && getArguments().getString("CRoute").length() > 0) {
                 List<LatLng> points = GoogleHelper.decodePath(getArguments().getString("CRoute"));
                 rPolyline.setPoints(points);
+            } else {
+                Log.i(LOG_TAG, "no Route");
             }
+
 
             if(getArguments().getString("TRoute") != null && getArguments().getString("TRoute").length() > 0) {
                 List<LatLng> points = GoogleHelper.decodePath(getArguments().getString("TRoute"));
                 mPolyline.setPoints(points);
+            } else {
+                Log.i(LOG_TAG, "no Route");
             }
             //updateMap(getArguments().getString("Route"));
         }
@@ -180,7 +185,7 @@ public class GoogleMapActivity extends Fragment implements
         Log.i(LOG_TAG, "GooglePlay Service Connected");
         Location mLocation = mLocationClient.getLastLocation();
         GoogleHelper.moveCamera(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),
-                                0.0f, 15.5f, mMap);
+                0.0f, 15.5f, mMap);
 //        if(!getArguments().getBoolean("EditMode")) {
 //            setGPSInterval(1000);
 //        }
@@ -293,6 +298,7 @@ public class GoogleMapActivity extends Fragment implements
         url.append("?origin=" + sLocation.replaceAll(" ", "%20"));
         url.append("&destination=" + dLocation.replaceAll(" ", "%20"));
         url.append("&waypoints=optimize:true%7C");
+
         for (LatLng latlng : wayPoints.values()) {
             url.append(latlng.toString().replaceAll("[^0-9,.-]", "") + "%7C");
         }
@@ -307,7 +313,7 @@ public class GoogleMapActivity extends Fragment implements
     }
 
     public void updateRouteMap(List<LatLng> point) {
-            rPolyline.setPoints(point);
+        rPolyline.setPoints(point);
     }
     public void updateMap (String url) {
 
@@ -336,7 +342,7 @@ public class GoogleMapActivity extends Fragment implements
     public void setAddress(String start, String destination) {
         if (start.equalsIgnoreCase("My Location")) {
             LatLng mLocation = new LatLng(mLocationClient.getLastLocation().getLatitude(),
-                                          mLocationClient.getLastLocation().getLongitude());
+                    mLocationClient.getLastLocation().getLongitude());
             sLocation = GoogleHelper.geoToAdress(mLocation, mGeocoder);
         } else {
             sLocation = start;
@@ -352,7 +358,7 @@ public class GoogleMapActivity extends Fragment implements
     public void fixBearing(float bearing, LatLng position) {
 
         GoogleHelper.moveCamera(position == null ? mMap.getCameraPosition().target : position,
-                     bearing , mMap.getCameraPosition().zoom, mMap);
+                bearing , mMap.getCameraPosition().zoom, mMap);
     }
 
     // fix camera to show full route
@@ -412,7 +418,7 @@ public class GoogleMapActivity extends Fragment implements
             Log.i(LOG_TAG, "set custom route");
         } else {
             if(!rPolyline.getPoints().isEmpty()) {
-                route = HomeActivity.getLCustomRoutes();
+                route = HomeActivity.getCustomRoutes();
             } else {
                 route = new data();
             }
@@ -423,7 +429,10 @@ public class GoogleMapActivity extends Fragment implements
             //route.setAltitude(activity.getAltitudes());
             route.setSpeed(activity.getSpeeds());
             route.setType(data.TYPE.trackedRoute);
-            HomeActivity.set(route);
+            route.setTime((int)activity.getFinalTime());
+            HomeActivity.setCustomRoutes(route);
         }
+        HomeActivity.getCustomRoutes();
+        HomeActivity.getTrackedRoutes();
     }
 }

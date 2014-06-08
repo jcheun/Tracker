@@ -64,6 +64,7 @@ public class ListRoute extends Activity {
 			}
 		});
 		if (rdata != null) {
+            refreshRoutes();
 			updateRoutes();
 		}
 	}
@@ -73,7 +74,7 @@ public class ListRoute extends Activity {
 		list.setAdapter(adapter);
 	}
 
-	public void refreshRoutes(View v) {
+	public void refreshRoutes() {
 		settings = getApplicationContext().getSharedPreferences(PREF_NAME, 0);
 		android_id = Secure.getString(getBaseContext().getContentResolver(), 
 				Secure.ANDROID_ID);
@@ -104,10 +105,18 @@ public class ListRoute extends Activity {
 
 			TextView s1 = (TextView) view.findViewById(R.id.itemFrom);
 			TextView s2 = (TextView) view.findViewById(R.id.itemTo);
+            TextView s3 = (TextView) view.findViewById(R.id.itemDate);
+            TextView s4 = (TextView) view.findViewById(R.id.itemTime);
 
 			s1.setText(objects.get(position).sStart);
 			s2.setText(objects.get(position).sDestination);
+            s3.setText(objects.get(position).date);
+            int seconds = Integer.valueOf(objects.get(position).sDuration) / 1000;
+            int minutes = seconds / 60;
+            int hours = minutes/60;
+            seconds = seconds % 60;
 
+            s4.setText(String.format("%02d : %02d : %02d", hours, minutes, seconds));
 			return view;
 		}
 	}

@@ -12,11 +12,10 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:onClick="viewProfile"
-        android:text="@string/viewProfile" />
+        android:text="@string/viewProfile" android:layout_below="@+id/map"/>
 
     <Button
         android:id="@+id/button3"
@@ -46,17 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:onClick="mapView"
-        android:text="@string/map" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/map"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:onClick="startTrack"
-        android:text="@string/startTrack" />
+        android:text="@string/btnCreate" />
 
     <Button
         android:id="@+id/button4"

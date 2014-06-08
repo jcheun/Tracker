@@ -101,7 +101,6 @@ public class data {
 			this.sStart = data.getString("start");
 			this.sTrackedRoute = data.getString("tracked_route");
 			this.sRoute = data.getString("route");
-			Log.d("sRout", sRoute);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
