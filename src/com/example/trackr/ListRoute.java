@@ -79,10 +79,10 @@ public class ListRoute extends Activity {
 		android_id = Secure.getString(getBaseContext().getContentResolver(), 
 				Secure.ANDROID_ID);
 		BackgroundDownloader downloader = new BackgroundDownloader();
-		DOWNLOAD_URL = DOWNLOAD_URL.concat(settings.getString("username", null)+"/")
+		String DL_URL = DOWNLOAD_URL.concat(settings.getString("username", null)+"/")
 				.concat(android_id+"/");
-		Log.d("executing request:", DOWNLOAD_URL);
-		downloader.execute(DOWNLOAD_URL);
+		Log.d("executing request:", DL_URL);
+		downloader.execute(DL_URL);
 		
 	}
 
@@ -127,7 +127,7 @@ public class ListRoute extends Activity {
 		private static final String LOG_TAG = "getrouteDL";
 
 		protected String doInBackground(String... urls) {
-			Log.d(LOG_TAG, "Sending login request....");
+			Log.d(LOG_TAG, "Sending upload request....");
 			String downloadedString = null;
 			String urlString = urls[0];
 			URI url = URI.create(urlString);
