@@ -29,29 +29,13 @@
         android:layout_marginTop="20dp"
         android:text="@string/to_location" />
 
-    <TextView
-        android:id="@+id/DistTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/to_location"
-        android:layout_below="@+id/to_location"
-        android:layout_marginTop="20dp"
-        android:text="Distance:  Est Time: " />
-    <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save Route"
-            android:id="@+id/saveRoute"
-            android:layout_below="@+id/DistTime" android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"/>
     <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start Tracking"
             android:id="@+id/startTracking"
-            android:layout_alignTop="@+id/saveRoute" android:layout_toRightOf="@+id/saveRoute"
-            android:layout_marginLeft="15dp"/>
+            android:layout_below="@+id/to_location" android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"/>
 
 </RelativeLayout>

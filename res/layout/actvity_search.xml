@@ -43,7 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Route"
-            android:background="@drawable/roundbtn"
             android:id="@+id/btnRoute" android:layout_below="@+id/to" android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" android:layout_marginRight="21dp" android:layout_marginTop="39dp"/>
 </RelativeLayout>

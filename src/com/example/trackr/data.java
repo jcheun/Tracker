@@ -60,8 +60,12 @@ public class data {
             avgSpeed += speed;
             Log.i("CD", Double.toString(speed));
         }
-        avgSpeed /= rSpeeds.size();
+        Log.i("Speed", Double.toString(avgSpeed));
+        if(rSpeeds.size() != 0)
+            avgSpeed /= (double)rSpeeds.size();
+        Log.i("Speed", Double.toString(avgSpeed));
         avgSpeed *= 2.2369362920544;
+        Log.i("Speed", Double.toString(avgSpeed));
     }
 
     public void setAltitude(List<Double> rAltitudes) {
@@ -72,13 +76,14 @@ public class data {
             if(altitude < minAltitude) minAltitude = altitude;
             avgAltitude += altitude;
         }
-        avgAltitude /= rAltitudes.size();
+        avgAltitude /= (double)rAltitudes.size();
     }
 
     public void setDistance(double tDistance) {
         distance = tDistance * 0.00062137;
-//        distance = (int) distance * 100;
-//        distance /= 100;
+        distance = distance * 100;
+        distance = (int)distance * 1;
+        distance /= 100;
     }
 
     public void setTime(int tTime) {

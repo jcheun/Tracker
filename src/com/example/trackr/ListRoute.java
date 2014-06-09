@@ -54,8 +54,8 @@ public class ListRoute extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int i, long l) {
-				Toast.makeText(getApplicationContext(),
-						"Click ListItem Number " + i, Toast.LENGTH_LONG).show();
+//				Toast.makeText(getApplicationContext(),
+//						"Click ListItem Number " + i, Toast.LENGTH_LONG).show();
 
 				Intent intent = new Intent(getApplicationContext(),
 						RouteInfoActivity.class);
@@ -110,7 +110,7 @@ public class ListRoute extends Activity {
 
 			s1.setText(objects.get(position).sStart);
 			s2.setText(objects.get(position).sDestination);
-            s3.setText(objects.get(position).date);
+            s3.setText(objects.get(position).sDate.substring(0,10));
             int seconds = Integer.valueOf(objects.get(position).sDuration) / 1000;
             int minutes = seconds / 60;
             int hours = minutes/60;
